@@ -1,20 +1,28 @@
 <template>
-  <div>App</div>
+  <the-form></the-form>
 </template>
 
 <script>
+import TheForm from './components/TheForm.vue';
+
 export default {
-  name: 'App',
+  components: {
+    TheForm
+  }
 };
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: #292929;
 }
 </style>
