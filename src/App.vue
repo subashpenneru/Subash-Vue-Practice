@@ -1,20 +1,33 @@
 <template>
-  <div>App</div>
+  <TheHeader title="RememberMe" />
+  <TheResources />
 </template>
 
 <script>
+import TheResources from './components/learning-resources/TheResources.vue';
+import TheHeader from './components/layouts/TheHeader.vue';
+
 export default {
   name: 'App',
+  components: {
+    TheHeader,
+    TheResources
+  }
 };
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  margin: 0;
 }
 </style>
