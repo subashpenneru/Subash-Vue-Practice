@@ -1,20 +1,58 @@
 <template>
-  <div>App</div>
+  <base-container title="Auth">
+    <user-auth></user-auth>
+  </base-container>
+  <base-container title="Vuex" v-if="isAuth">
+    <the-counter></the-counter>
+    <favorite-value></favorite-value>
+    <button @click="addOne">Add 10</button>
+    <change-counter></change-counter>
+  </base-container>
 </template>
 
 <script>
+import BaseContainer from './components/BaseContainer.vue';
+import TheCounter from './components/TheCounter.vue';
+import ChangeCounter from './components/ChangeCounter.vue';
+import FavoriteValue from './components/FavoriteValue.vue';
+import UserAuth from './components/UserAuth.vue';
+
 export default {
-  name: 'App',
+  components: {
+    BaseContainer,
+    TheCounter,
+    ChangeCounter,
+    FavoriteValue,
+    UserAuth
+  },
+  methods: {
+    addOne() {
+      // this.$store.commit('increase', { value: 10 });
+      // this.$store.commit({
+      //   type: 'increase',
+      //   value: 10
+      // });
+      this.$store.dispatch('counter/increase', { value: 10 });
+    }
+  },
+  computed: {
+    isAuth() {
+      return this.$store.getters['userIsAuthenticated'];
+    }
+  }
 };
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: sans-serif;
+}
+
+body {
+  margin: 0;
 }
 </style>
