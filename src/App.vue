@@ -1,20 +1,40 @@
 <template>
-  <div>App</div>
+  <the-counter></the-counter>
+  <control-center></control-center>
 </template>
 
 <script>
+import ControlCenter from './components/ControlCenter.vue';
+import TheCounter from './components/TheCounter.vue';
+
 export default {
-  name: 'App',
+  components: {
+    ControlCenter,
+    TheCounter,
+  },
 };
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: sans-serif;
+}
+
+body {
+  margin: 0;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+
+.container {
+  margin: 3rem auto;
+  max-width: 30rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  padding: 1rem;
+  text-align: center;
 }
 </style>
