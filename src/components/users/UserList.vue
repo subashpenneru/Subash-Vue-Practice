@@ -26,9 +26,11 @@
 </template>
 
 <script>
-import { computed, ref, watch } from 'vue';
+import { toRefs } from 'vue';
 
 import UserItem from './UserItem.vue';
+import useSearch from '../../hooks/search';
+import useSort from '../../hooks/sort';
 
 export default {
   components: {
@@ -37,57 +39,23 @@ export default {
   props: ['users'],
   emits: ['list-projects'],
   setup(props) {
-    const enteredSearchTerm = ref('');
-    const activeSearchTerm = ref('');
-    const availableUsers = computed(() => {
-      let users = props.users || [];
+    const { users } = toRefs(props);
+    const { enteredSearchTerm, availableItems, updateSearch } = useSearch(
+      users,
+      'fullName'
+    );
+    const { sorting, displayedItems, sort } = useSort(
+      availableItems,
+      'fullName'
+    );
 
-      if (activeSearchTerm.value) {
-        users = props.users.filter(user =>
-          user.fullName
-            .toLowerCase()
-            .includes(activeSearchTerm.value.toLowerCase())
-        );
-      }
-
-      return users;
-    });
-
-    const updateSearch = val => {
-      enteredSearchTerm.value = val;
+    return {
+      enteredSearchTerm,
+      updateSearch,
+      sorting,
+      displayedUsers: displayedItems,
+      sort
     };
-
-    watch(enteredSearchTerm, newVal => {
-      setTimeout(() => {
-        if (newVal === enteredSearchTerm.value) {
-          activeSearchTerm.value = newVal;
-        }
-      }, 300);
-    });
-
-    const sorting = ref(null);
-    const displayedUsers = computed(() => {
-      if (!sorting.value) {
-        return availableUsers.value;
-      }
-      return availableUsers.value.slice().sort((u1, u2) => {
-        if (sorting.value === 'asc' && u1.fullName > u2.fullName) {
-          return 1;
-        } else if (sorting.value === 'asc') {
-          return -1;
-        } else if (sorting.value === 'desc' && u1.fullName > u2.fullName) {
-          return -1;
-        } else {
-          return 1;
-        }
-      });
-    });
-
-    const sort = mode => {
-      sorting.value = mode;
-    };
-
-    return { enteredSearchTerm, updateSearch, sorting, displayedUsers, sort };
   }
 };
 </script>
